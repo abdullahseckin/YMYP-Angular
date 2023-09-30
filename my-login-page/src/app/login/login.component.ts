@@ -8,23 +8,23 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  userNameOrEmail: string = "";
-  password:string = "";
-
+  isShowPassword: boolean = false;
+  isPasswordFocus: boolean = false;
+  
   signIn(form:NgForm){
     if(form.valid){
       console.log(form);
       console.log(form.value);
     }    
-  }
+  }  
 
-  checkValidation(el:HTMLInputElement){
-    if(!el.validity.valid){
-      el.classList.add("is-invalid"); //form-control is-invalid is-valid
-      el.classList.remove("is-valid");//form-control is-inval
+  showOrHidePassword(password: HTMLInputElement){
+    if(this.isShowPassword){
+      this.isShowPassword = false;
+      password.type = "password"
     }else{
-      el.classList.remove("is-invalid");//form-control is-valid is-invalid
-      el.classList.add("is-valid");//form-control is-valid
+      this.isShowPassword = true;
+      password.type = "text"
     }
   }
 }
