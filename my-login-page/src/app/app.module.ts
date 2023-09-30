@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ValidateDirective } from './directives/validate.directive';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,14 @@ import { ValidateDirective } from './directives/validate.directive';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      preventDuplicates: true,
+      timeOut: 3000,
+      progressBar: true,
+      positionClass: "toast-bottom-right"
+    }),
     FormsModule
   ],
   providers: [],
