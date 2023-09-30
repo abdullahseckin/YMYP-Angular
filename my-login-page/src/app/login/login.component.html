@@ -6,20 +6,28 @@
                 <p>Please enter your login information</p>
             </div>
             <div class="card-body">
-                <div class="form-group">
-                    <label for="userNameOrEmail">User Name Or Email</label>
-                    <input type="text" id="userNameOrEmail" class="form-control">
-                </div>
-                <div class="form-group mt-1">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control">
-                </div>
-                <div class="form-group mt-1">
-                    <button class="btn btn-success w-100">
-                        <i class="fa-solid fa-lock fa-bounce"></i>
-                        Sign In
-                    </button>
-                </div>
+                <form #loginForm="ngForm" (ngSubmit)="signIn(loginForm)" autocomplete="off">
+                    <div class="form-group">
+                        <label for="userNameOrEmail">User Name Or Email</label>
+                        <input #name (keyup)="checkValidation(name)" required minlength="3" type="text" ngModel name="userNameOrEmail" id="userNameOrEmail" class="form-control">
+                        <div class="invalid-feedback">
+                            User name or email must be valid
+                        </div>
+                    </div>
+                    <div class="form-group mt-1">
+                        <label for="password">Password</label>
+                        <input #password (keyup)="checkValidation(password)" required minlength="6" type="password" ngModel name="password" class="form-control">
+                        <div class="invalid-feedback">
+                            Password must be valid
+                        </div>
+                    </div>
+                    <div class="form-group mt-1">
+                        <button [disabled]="!loginForm.valid" type="submit" class="btn btn-success w-100">
+                            <i class="fa-solid fa-lock fa-bounce"></i>
+                            Sign In
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
