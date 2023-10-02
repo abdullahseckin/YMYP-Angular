@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" routerLink="/">Book Store</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,7 +10,18 @@
             <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
           </li>          
         </ul>
-        <button class="btn btn-outline-success">Shopping Cart</button>
+        <select style="width: 15%;" (change)="switchLanguage($event)" class="form-control me-2">
+          <option value="en">English</option>
+          <option value="tr">Türkçe</option>
+        </select>
+        <button class="btn btn-outline-light position-relative">
+          <i class="fa-solid fa-cart-shopping" 
+          [ngClass]="count > 0 ? 'fa-bounce' : ''"></i>
+          <span *ngIf="count>0" class="position-absolute translate-middle badge rounded-pill bg-danger" style="top:40px; right: -27px;">
+            {{count}}
+            <span class="visually-hidden">unread messages</span>
+          </span> 
+        </button>
       </div>
     </div>
 </nav>
