@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  books: number[] = [1,2,3,4,5,6]
+  response: any;
+  pageNumbers: number[] = [];
+
+  constructor(private http: HttpClient){
+    this.getAll();
+  }
+
+  getAll(pageNumber = 1){
+    this.http.get(`https://localhost:7082/api/Books/GetAll/${pageNumber}/10`)
+    .subscribe(res=> {
+      this.response = res;
+      this.setPageNumber();
+    })
+  }
+
+  setPageNumber(){
+    this.pageNumbers = [];
+    for (let i = 0; i < this.response.totalPageCount; i++) {
+      this.pageNumbers.push(i + 1)      
+    }
+  }
 }
