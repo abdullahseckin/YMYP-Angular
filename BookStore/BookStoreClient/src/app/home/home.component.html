@@ -1,90 +1,108 @@
 <div class="card mt-3">
   <div class="card-header d-flex justify-content-between align-items-center">
-    <h5>{{'homePage' | translate}}</h5>
+    <h5>{{ "homePage" | translate }}</h5>
     <div>
-        <a routerLink="/">{{'home' | translate}}</a>
+      <a routerLink="/">{{ "home" | translate }}</a>
     </div>
   </div>
 </div>
 
-
 <div class="row mt-4">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3>{{'categories' | translate}}</h3>
-            </div>
-            <div class="card-body">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </span>
-                    <input 
-                    type="search" 
-                    class="form-control" 
-                    placeholder="{{'search' | translate}}">
-                </div>
-                <ul class="categories">
-                    <li 
-                    (click)="changeCategory(null)"
-                    [ngClass]="request.categoryId === null ? 'active' : ''">
-                    {{'allCategories' | translate}}
-                  </li>
-                    <li                    
-                    (click)="changeCategory(c.id)"
-                     [ngClass]="request.categoryId === c.id ? 'active' : ''"
-                     *ngFor="let c of categories">{{c.name}}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-9 col-md-8 col-sm-6 col-12">
+  <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>{{ "categories" | translate }}</h3>
+      </div>
+      <div class="card-body">
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </span>
-            <input 
-            [(ngModel)]="request.search"
-            (keydown.enter)="getAll(request.pageNumber)" 
-            (search)="getAll(1)"
-            type="search" class="form-control"  
-            placeholder="{{'search' | translate}}">
+          <span class="input-group-text" id="basic-addon1">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input
+            [(ngModel)]="searchCategory"
+            type="search"
+            class="form-control"
+            placeholder="{{ 'search' | translate }}"
+          />
         </div>
-        <div class="row">
-            <div class="col-xl-4 col-md-6 col-12 mb-2" *ngFor="let b of response?.data">
-                <div class="card text-center">
-                    <div class="card-header">
-                        <img [src]="b.coverImageUrl" class="card-img-top mt-2">
-                        <p>{{b.author}}</p>
-                    </div>                   
-                    <div class="card-body">
-                      <h5 class="card-title">{{ b.title }}</h5>
-                      <p class="card-text">{{b.summary}}</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
-            </div>            
-        </div>
-        <nav aria-label="Page navigation example" style="float: right;">
-            <ul class="pagination">
-              <li class="page-item" *ngIf="!response.isFirstPage">
-                <a class="page-link" 
-                (click)="getAll(response.pageNumber - 1)" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item" 
-              [ngClass]="response.pageNumber === p ? 'active': ''" *ngFor="let p of pageNumbers">
-                <a class="page-link" (click)="getAll(p)">{{p}}</a>
-              </li>             
-              <li class="page-item" *ngIf="!response.isLastPage">
-                <a class="page-link" 
-                (click)="getAll(response.pageNumber + 1)" 
-                 aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+        <ul class="categories">
+          <li
+            (click)="changeCategory(null)"
+            [ngClass]="request.categoryId === null ? 'active' : ''"
+          >
+            {{ "allCategories" | translate }}
+          </li>
+          <li
+            (click)="changeCategory(c.id)"
+            [ngClass]="request.categoryId === c.id ? 'active' : ''"
+            *ngFor="let c of categories | categoryPipe : searchCategory"
+          >
+            {{ c.name }}
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
+  <div class="col-lg-9 col-md-8 col-sm-6 col-12">
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span>
+      <input
+        [(ngModel)]="request.search"
+        (keydown.enter)="getAll(request.pageNumber)"
+        (search)="getAll(1)"
+        type="search"
+        class="form-control"
+        placeholder="{{ 'search' | translate }}"
+      />
+    </div>
+    <div class="row">
+      <div
+        class="col-xl-4 col-md-6 col-12 mb-2"
+        *ngFor="let b of response?.data"
+      >
+        <div class="card text-center">
+          <div class="card-header">
+            <img [src]="b.coverImageUrl" class="card-img-top mt-2" />
+            <p>{{ b.author }}</p>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ b.title }}</h5>
+            <p class="card-text">{{ b.summary }}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav aria-label="Page navigation example" style="float: right">
+      <ul class="pagination">
+        <li class="page-item" *ngIf="!response?.isFirstPage">
+          <a
+            class="page-link"
+            (click)="getAll(response?.pageNumber - 1)"
+            aria-label="Previous"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li
+          class="page-item"
+          [ngClass]="response?.pageNumber === p ? 'active' : ''"
+          *ngFor="let p of pageNumbers"
+        >
+          <a class="page-link" (click)="getAll(p)">{{ p }}</a>
+        </li>
+        <li class="page-item" *ngIf="!response?.isLastPage">
+          <a
+            class="page-link"
+            (click)="getAll(response?.pageNumber + 1)"
+            aria-label="Next"
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>

@@ -10,6 +10,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '@angular/forms';
+import { CategoryPipe } from './pipes/category.pipe';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -20,7 +21,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     LayoutsComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    CategoryPipe
   ],
   imports: [
     BrowserModule,

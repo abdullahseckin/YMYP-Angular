@@ -12,7 +12,8 @@ export class HomeComponent {
   categories: any = [];
   pageNumbers: number[] = [];
   request: RequestModel = new RequestModel();
-
+  searchCategory: string = "";
+  
   constructor(private http: HttpClient){
     this.getAll();
     this.getCategories();
