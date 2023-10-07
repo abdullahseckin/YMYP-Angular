@@ -7,7 +7,7 @@ namespace BookStoreServer.WebApi.Controllers;
 [Route("api/[controller]/[action]")]
 [ApiController]
 public class BooksController : ControllerBase
-{   
+{
     public BooksController()
     {
     }
@@ -41,11 +41,15 @@ public class BooksController : ControllerBase
 public static class SeedData
 {
     public static List<Book> Books = new BookService().CreateSeedBookData();
+    public static List<Category> Categories = new BookService().CreateCategories();
+    public static List<BookCategory> BookCategories = new BookService().CreateBookCategories();
 }
 
 public class BookService
 {
     private List<Book> books = new();
+    private List<Category> categories = new();
+    private List<BookCategory> bookCategories = new();
 
     public List<Book> CreateSeedBookData()
     {
@@ -69,5 +73,43 @@ public class BookService
         }
 
         return books;
+    }
+
+    public List<Category> CreateCategories()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            var category = new Category()
+            {
+                Id = i + 1,
+                Name = $"Kategori {i + 1}",
+                IsActive = true,
+                IsDeleted = false
+            };
+
+            categories.Add(category);
+        }
+
+        return categories;
+    }
+
+    public List<BookCategory> CreateBookCategories()
+    {
+        int id = 0;
+        Random random = new();
+        foreach (var book in SeedData.Books)
+        {
+            id++;
+            var bookCategory = new BookCategory()
+            {
+                Id = id,
+                BookId = book.Id,
+                Book = book,
+                CategoryId = random.Next(1, 10)
+            };
+            bookCategories.Add(bookCategory);
+        }
+
+        return bookCategories;
     }
 }
