@@ -9,11 +9,18 @@ import { RequestModel } from '../models/request.model';
 })
 export class HomeComponent {
   response: any;
+  categories: any = [];
   pageNumbers: number[] = [];
   request: RequestModel = new RequestModel();
 
   constructor(private http: HttpClient){
     this.getAll();
+    this.getCategories();
+  }
+
+  changeCategory(categoryId: number | null = null){
+    this.request.categoryId = categoryId;
+    this.getAll(1);
   }
 
   getAll(pageNumber = 1){
@@ -24,6 +31,11 @@ export class HomeComponent {
       this.response = res;
       this.setPageNumber();
     })
+  }
+
+  getCategories(){
+    this.http.get("https://localhost:7082/api/Categories/GetAll")
+    .subscribe(res=> this.categories = res);
   }
 
   setPageNumber(){

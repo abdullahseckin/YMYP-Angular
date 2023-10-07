@@ -25,10 +25,15 @@
                     placeholder="{{'search' | translate}}">
                 </div>
                 <ul class="categories">
-                    <li>{{'adventure' | translate}}</li>
-                    <li>{{'software' | translate}}</li>
-                    <li>{{'love' | translate}}</li>
-                    <li>{{'detective' | translate}}</li>
+                    <li 
+                    (click)="changeCategory(null)"
+                    [ngClass]="request.categoryId === null ? 'active' : ''">
+                    {{'allCategories' | translate}}
+                  </li>
+                    <li                    
+                    (click)="changeCategory(c.id)"
+                     [ngClass]="request.categoryId === c.id ? 'active' : ''"
+                     *ngFor="let c of categories">{{c.name}}</li>
                 </ul>
             </div>
         </div>

@@ -1,10 +1,7 @@
 {
     "categories": "Kategoriler",
-    "adventure": "Macera",
-    "software":"Yazılım",
-    "love": "Aşk",
-    "detective": "Polisiye",
     "search": "Aranacak değer girin...",
     "home": "Ana Sayfa",
-    "homePage": "Ana Sayfa"
+    "homePage": "Ana Sayfa",
+    "allCategories": "Tüm Kategoriler"
 }
