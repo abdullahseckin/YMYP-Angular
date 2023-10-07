@@ -35,20 +35,24 @@ public class BooksController : ControllerBase
         }
     }
 
-    [HttpGet("{pageNumber}/{pageSize}")]
-    public IActionResult GetAll(int pageNumber, int pageSize) //?pageNumber = 1   localhost/1/10
+    [HttpPost]
+    public IActionResult GetAll(RequestDto request)
     {
         ResponseDto<List<Book>> response = new();
-
+        string replaceSearch = request.Search.Replace("İ", "i").ToLower();
         response.Data = books
-            .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
+            .Where(x =>
+                x.Title.Replace("İ", "i").ToLower().Contains(replaceSearch) ||
+                x.Author.Replace("İ", "i").ToLower().Contains(replaceSearch)
+             )
+            .Skip((request.PageNumber - 1) * request.PageSize)
+            .Take(request.PageSize)
             .ToList();
-        response.PageNumber = pageNumber;
-        response.PageSize = pageSize;
-        response.TotalPageCount = (int)Math.Ceiling(books.Count / (double)pageSize);
-        response.IsFirstPage = pageNumber == 1;
-        response.IsLastPage = pageNumber == response.TotalPageCount;
+        response.PageNumber = request.PageNumber;
+        response.PageSize = request.PageSize;
+        response.TotalPageCount = (int)Math.Ceiling(books.Count / (double)request.PageSize);
+        response.IsFirstPage = request.PageNumber == 1;
+        response.IsLastPage = request.PageNumber == response.TotalPageCount;
 
         return Ok(response);
     }

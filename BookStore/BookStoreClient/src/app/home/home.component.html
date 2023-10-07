@@ -19,7 +19,10 @@
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </span>
-                    <input type="search" class="form-control"  placeholder="{{'search' | translate}}">
+                    <input 
+                    type="search" 
+                    class="form-control" 
+                    placeholder="{{'search' | translate}}">
                 </div>
                 <ul class="categories">
                     <li>{{'adventure' | translate}}</li>
@@ -35,7 +38,12 @@
             <span class="input-group-text" id="basic-addon1">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </span>
-            <input type="search" class="form-control"  placeholder="{{'search' | translate}}">
+            <input 
+            [(ngModel)]="request.search"
+            (keydown.enter)="getAll(request.pageNumber)" 
+            (search)="getAll(1)"
+            type="search" class="form-control"  
+            placeholder="{{'search' | translate}}">
         </div>
         <div class="row">
             <div class="col-xl-4 col-md-6 col-12 mb-2" *ngFor="let b of response?.data">
