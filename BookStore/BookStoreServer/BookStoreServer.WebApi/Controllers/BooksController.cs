@@ -90,6 +90,16 @@ public class BookService
 
     public List<Category> CreateCategories()
     {
+        var category2 = new Category()
+        {
+            Id = 0,
+            Name = $"Halılar",
+            IsActive = true,
+            IsDeleted = false
+        };
+
+        categories.Add(category2);
+
         for (int i = 0; i < 10; i++)
         {
             var category = new Category()

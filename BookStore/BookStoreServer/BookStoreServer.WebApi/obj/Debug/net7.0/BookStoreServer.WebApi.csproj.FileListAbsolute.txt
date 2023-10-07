@@ -34,3 +34,7 @@ C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\obj\Debug\net7.
 C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\EntityFrameworkCorePagination.Nuget.dll
 C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
 C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\Antlr3.Runtime.dll
+C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\DuoVia.FuzzyStrings.dll
+C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\ExpressionEvaluator.dll
+C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\GSF.Core.dll
