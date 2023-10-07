@@ -17,11 +17,24 @@ public class BooksController : ControllerBase
     {
         ResponseDto<List<Book>> response = new();
         string replaceSearch = request.Search.Replace("İ", "i").ToLower();
-        var newBooks = SeedData.Books
-            .Where(x =>
-                x.Title.Replace("İ", "i").ToLower().Contains(replaceSearch) ||
-                x.Author.Replace("İ", "i").ToLower().Contains(replaceSearch)
-             )
+        var newBooks = new List<Book>();
+
+        if (request.CategoryId != null)
+        {
+            newBooks = SeedData.BookCategories
+           .Where(p => p.CategoryId == request.CategoryId)
+           .Select(s => s.Book)
+           .ToList();
+        }
+        else
+        {
+            newBooks = SeedData.Books;
+        }
+
+        newBooks = newBooks
+            .Where(p => p.Title.ToLower().Contains(replaceSearch) ||
+                        p.Author.ToLower().Contains(replaceSearch) ||
+                        p.ISBN.ToLower().Contains(replaceSearch))
             .ToList();
 
         response.Data = newBooks
