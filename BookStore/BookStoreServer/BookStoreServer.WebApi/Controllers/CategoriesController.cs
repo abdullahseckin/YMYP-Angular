@@ -10,9 +10,7 @@ public class CategoriesController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        string searchTerm = "halar";
-        var categories = SeedData.Categories; // Ürünlerinizi bu listeye yükleyin
-        var closeMatches = categories.Where(c => c.Name.ApproximatelyEquals(searchTerm, FuzzyStringComparisonOptions.UseJaccardDistance, FuzzyStringComparisonTolerance.Normal)).ToList();
+        var categories = SeedData.Categories;
         return Ok(SeedData.Categories);
     }
 }
