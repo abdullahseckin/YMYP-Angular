@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreServer.WebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231009180444_mg1")]
-    partial class mg1
+    [Migration("20231009193449_m1")]
+    partial class m1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,8 +51,8 @@ namespace BookStoreServer.WebApi.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -72,21 +72,15 @@ namespace BookStoreServer.WebApi.Migrations
 
             modelBuilder.Entity("BookStoreServer.WebApi.Models.BookCategory", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("BookId", "CategoryId");
 
-                    b.HasIndex("BookId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("BookCategories");
                 });
@@ -114,6 +108,33 @@ namespace BookStoreServer.WebApi.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("BookStoreServer.WebApi.Models.Book", b =>
+                {
+                    b.OwnsOne("BookStoreServer.WebApi.ValueObjects.Money", "Price", b1 =>
+                        {
+                            b1.Property<int>("BookId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Currency")
+                                .IsRequired()
+                                .HasMaxLength(5)
+                                .HasColumnType("nvarchar(5)");
+
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("money");
+
+                            b1.HasKey("BookId");
+
+                            b1.ToTable("Books");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BookId");
+                        });
+
+                    b.Navigation("Price")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BookStoreServer.WebApi.Models.BookCategory", b =>
                 {
                     b.HasOne("BookStoreServer.WebApi.Models.Book", "Book")
@@ -122,7 +143,15 @@ namespace BookStoreServer.WebApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BookStoreServer.WebApi.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Book");
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }
