@@ -7,16 +7,19 @@
 }
 
 .categories li{
+    position: relative;
     padding: 12px;
     padding-left: 10px;
     border-bottom: 1px solid #ccc;
     cursor: pointer;
     border-radius: 10px;
+    transition: all .5s;
 }
 
 .categories li:hover{
-    background-color: blue ;
+    background-color: #6c757d ;
     color: white;
+    transform: translateX(10px);
 }
 
 .card-img-top{
@@ -26,6 +29,11 @@
 }
 
 .active{
-    background-color: blue ;
-    color: white;
+    background-color: #0d6efd ;
+    color: white;       
+}
+
+.btn-outline-secondary:hover{
+    background-color: #198754 !important;
+    color: white !important;
 }

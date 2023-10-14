@@ -27,12 +27,14 @@
         </div>
         <ul class="categories">
           <li
+          class="category"
             (click)="changeCategory(null)"
             [ngClass]="request.categoryId === null ? 'active' : ''"
           >
             {{ "allCategories" | translate }}
           </li>
           <li
+          class="category"
             (click)="changeCategory(c.id)"
             [ngClass]="request.categoryId === c.id ? 'active' : ''"
             *ngFor="let c of categories | categoryPipe : searchCategory"
@@ -50,59 +52,43 @@
       </span>
       <input
         [(ngModel)]="request.search"
-        (keydown.enter)="getAll(request.pageNumber)"
-        (search)="getAll(1)"
+        (keydown.enter)="getAll()"
+        (search)="getAll()"
         type="search"
         class="form-control"
         placeholder="{{ 'search' | translate }}"
       />
     </div>
-    <div class="row">
+    <div class="row">  
       <div
         class="col-xl-4 col-md-6 col-12 mb-2"
-        *ngFor="let b of response?.data"
+        *ngFor="let b of books"
       >
         <div class="card text-center">
-          <div class="card-header">
+          <div class="card-body">
             <img [src]="b.coverImageUrl" class="card-img-top mt-2" />
+          </div>
+          <div class="card-header">           
+            <h5 class="card-title">{{ b.title }}</h5>
             <p>{{ b.author }}</p>
           </div>
           <div class="card-body">
-            <h5 class="card-title">{{ b.title }}</h5>
             <p class="card-text">{{ b.summary }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <button class="btn btn-outline-secondary d-flex justify-content-between w-100 align-items-center">
+              <span>{{b.price.value | currency:'':'':'1.2-2'}} {{b.price.currency}}</span>
+              <i class="fa-solid fa-cart-shopping fa-bounce"></i>
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <nav aria-label="Page navigation example" style="float: right">
-      <ul class="pagination">
-        <li class="page-item" *ngIf="!response?.isFirstPage">
-          <a
-            class="page-link"
-            (click)="getAll(response?.pageNumber - 1)"
-            aria-label="Previous"
-          >
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li
-          class="page-item"
-          [ngClass]="response?.pageNumber === p ? 'active' : ''"
-          *ngFor="let p of pageNumbers"
-        >
-          <a class="page-link" (click)="getAll(p)">{{ p }}</a>
-        </li>
-        <li class="page-item" *ngIf="!response?.isLastPage">
-          <a
-            class="page-link"
-            (click)="getAll(response?.pageNumber + 1)"
-            aria-label="Next"
-          >
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    
+    <div
+      class="search-results"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="feedData()"
+    ></div>
   </div>
 </div>

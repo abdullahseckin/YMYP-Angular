@@ -14,23 +14,8 @@ public class ConfigurationsController : ControllerBase
     [HttpGet]
     public IActionResult SeedData()
     {
-        List<Category> categories = new();
-        for (int i = 0; i < 10; i++)
-        {
-            var category = new Category()
-            {
-                Name = $"Category {i}",
-                IsActive = true,
-                IsDeleted = false
-            };
-            categories.Add(category);
-        }
-
-        context.Categories.AddRange(categories);
-        context.SaveChanges();
-
         List<Book> books = new();
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 10000; i++)
         {
             var book = new Book()
             {
@@ -49,6 +34,8 @@ public class ConfigurationsController : ControllerBase
         }
         context.Books.AddRange(books);
         context.SaveChanges();
+
+        List<Category> categories = context.Categories.ToList();
 
         List<BookCategory> bookCategories = new();
         foreach (var book in books)

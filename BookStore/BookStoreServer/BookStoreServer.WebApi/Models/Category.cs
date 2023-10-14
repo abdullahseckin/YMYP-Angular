@@ -1,4 +1,6 @@
-﻿namespace BookStoreServer.WebApi.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BookStoreServer.WebApi.Models;
 
 public sealed class Category //Entity => Domain-Driven Design
 {

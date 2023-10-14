@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RequestModel } from '../models/request.model';
+import { BookModel } from '../models/book.model';
 
 @Component({
   selector: 'app-home',
@@ -8,41 +9,43 @@ import { RequestModel } from '../models/request.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  response: any;
+  books: BookModel[] = [];
   categories: any = [];
   pageNumbers: number[] = [];
   request: RequestModel = new RequestModel();
   searchCategory: string = "";
+  newData:any[] = [];
 
   constructor(private http: HttpClient){
-    this.getAll();
     this.getCategories();
   }
 
-  changeCategory(categoryId: number | null = null){
-    this.request.categoryId = categoryId;
-    this.getAll(1);
+  feedData(){
+    this.request.pageSize += 10;
+    this.newData = [];
+    this.getAll();
   }
 
-  getAll(pageNumber = 1){
-    this.request.pageNumber = pageNumber;
+  changeCategory(categoryId: number | null = null){
+    this.request.categoryId = categoryId; 
+    this.request.pageSize = 0;  
+    this.feedData();  
+  }
+
+  getAll(){
     this.http
-    .post(`https://localhost:7082/api/Books/GetAll/`, this.request)
+    .post<BookModel[]>(`https://localhost:7082/api/Books/GetAll/`, this.request)
     .subscribe(res=> {
-      this.response = res;
-      this.setPageNumber();
+      this.books = res;
     })
   }
 
   getCategories(){
     this.http.get("https://localhost:7082/api/Categories/GetAll")
-    .subscribe(res=> this.categories = res);
+    .subscribe(res=> {
+      this.categories = res;
+      this.getAll();
+    });
   }
-
-  setPageNumber(){
-    this.pageNumbers = [];
-    for (let i = 0; i < this.response.totalPageCount; i++) {
-      this.pageNumbers.push(i + 1)      
-    }
-  }
+  
 }

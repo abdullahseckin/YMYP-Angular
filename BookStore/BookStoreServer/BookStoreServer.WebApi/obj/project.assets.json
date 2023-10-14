@@ -3470,7 +3470,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tugay\\.nuget\\packages\\": {}
+    "C:\\Users\\taner\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -3478,11 +3478,11 @@
       "projectUniqueName": "C:\\YMYP-Angular\\BookStore\\BookStoreServer\\BookStoreServer.WebApi\\BookStoreServer.WebApi.csproj",
       "projectName": "BookStoreServer.WebApi",
       "projectPath": "C:\\YMYP-Angular\\BookStore\\BookStoreServer\\BookStoreServer.WebApi\\BookStoreServer.WebApi.csproj",
-      "packagesPath": "C:\\Users\\tugay\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\taner\\.nuget\\packages\\",
       "outputPath": "C:\\YMYP-Angular\\BookStore\\BookStoreServer\\BookStoreServer.WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\tugay\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\taner\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3558,7 +3558,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   },

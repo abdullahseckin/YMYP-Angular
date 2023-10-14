@@ -103,6 +103,141 @@ namespace BookStoreServer.WebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Korku"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Bilim Kurgu"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Tarih"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Edebiyat"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Çocuk"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Psikoloji"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Din"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Felsefe"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Bilim"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Sanat"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Spor"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Gezi"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Dergi"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Mizah"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Kişisel Gelişim"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Yemek"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Hobi"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Referans"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "Eğitim"
+                        });
                 });
 
             modelBuilder.Entity("BookStoreServer.WebApi.Models.Book", b =>
