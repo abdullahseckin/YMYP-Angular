@@ -1,7 +1,8 @@
 {
     "categories": "Kategoriler",
-    "search": "Aranacak değer girin...",
-    "home": "Ana Sayfa",
+    "search": "Aranacak değer girin...",    
     "homePage": "Ana Sayfa",
-    "allCategories": "Tüm Kategoriler"
+    "shoppingCartPage": "Sepetim",
+    "allCategories": "Tüm Kategoriler",
+    "addBookInShoppingCartIsSuccessful": "Kitap başarıyla sepete eklendi"
 }

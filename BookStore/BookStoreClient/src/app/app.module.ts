@@ -12,6 +12,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '@angular/forms';
 import { CategoryPipe } from './pipes/category.pipe';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { IconControlDirective } from './directives/icon-control.directive';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { TrCurrencyPipe } from 'tr-currency';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -23,11 +27,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     LayoutsComponent,
     HomeComponent,
     NavbarComponent,
-    CategoryPipe
+    CategoryPipe,
+    IconControlDirective,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    TrCurrencyPipe,
+    SweetAlert2Module,
     InfiniteScrollModule,
     FormsModule,
     HttpClientModule,

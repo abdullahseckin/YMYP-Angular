@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RequestModel } from '../models/request.model';
 import { BookModel } from '../models/book.model';
+import { ShoppingCartService } from '../services/shopping-cart.service';
+import { SwalService } from '../services/swal.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +19,22 @@ export class HomeComponent {
   searchCategory: string = "";
   newData:any[] = [];
 
-  constructor(private http: HttpClient){
-    this.getCategories();
+  constructor(
+    private http: HttpClient,
+    private shopping: ShoppingCartService,
+    private swal: SwalService,
+    private translate: TranslateService
+    ){
+    this.getCategories();    
+  }
+
+  addShoppingCart(book: BookModel){
+    this.shopping.shoppingCarts.push(book);
+    localStorage.setItem("shoppingCarts", JSON.stringify(this.shopping.shoppingCarts));
+    this.shopping.count++;
+    this.translate.get("addBookInShoppingCartIsSuccessful").subscribe(res=> {
+      this.swal.callToast(res);
+    });
   }
 
   feedData(){

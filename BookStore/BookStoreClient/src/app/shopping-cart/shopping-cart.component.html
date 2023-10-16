@@ -1,0 +1,60 @@
+<div class="card mt-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>{{ "shoppingCartPage" | translate }}</h5>
+        <ul class="d-flex gap-2 align-items-center" style="list-style: none;">
+            <li routerLink="/">{{ "homePage" | translate }}</li>
+            <li>/</li>
+            <li routerLink="/shopping-cart">
+                {{ "shoppingCartPage" | translate }}
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-lg-9 col-12">
+        <div class="card mt-1 position-relative" *ngFor="let s of shopping.shoppingCarts">
+            <div class="row">
+                <div class="col-2 text-center card-image-div">
+                    <img class="card-image" [src]="s.coverImageUrl" alt="">
+                </div>
+                <div class="col-7">
+                    <div class="form-group">
+                        Ürün Adı: {{s.title}} 
+                    </div>
+                    <div class="form-group">
+                        Yazar: {{s.author}}
+                    </div>
+                    <div class="form-group">
+                        Özet: {{s.summary}}
+                    </div>
+                </div>
+                <div class="col-3 text-center d-flex justify-content-center" style="flex-direction: column;">
+                    <h5 *ngIf="language=='tr'">
+                        {{s.price.value | trCurrency}} {{s.price.currency}}
+                    </h5>
+                    <h5 *ngIf="language!='tr'">
+                        {{s.price.value | currency: '':'':'1.2-2'}} {{s.price.currency}}
+                    </h5>
+                </div>
+            </div>
+            <i class="fa fa-trash trash"></i>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-12">
+        <div class="card">
+            <div class="form-group">
+                <h1 class="alert alert-danger text-center">
+                    25.000,00 ₺
+                </h1>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-danger w-100">
+                    Ödeme Yap
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

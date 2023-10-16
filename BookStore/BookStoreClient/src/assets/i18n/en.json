@@ -2,5 +2,7 @@
     "categories": "Categories",   
     "search": "Enter value to search for...",
     "homePage": "Home Page",
-    "allCategories": "All Categories"
+    "shoppingCartPage": "My Shopping Cart",
+    "allCategories": "All Categories",
+    "addBookInShoppingCartIsSuccessful": "Adding books to the shopping cart was successful"
 }

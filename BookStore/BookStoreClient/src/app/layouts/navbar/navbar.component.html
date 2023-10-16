@@ -6,19 +6,19 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
-          </li>          
+          </li>           -->
         </ul>
-        <select style="width: 15%;" (change)="switchLanguage($event)" class="form-control me-2">
+        <select style="width: 15%;" [(ngModel)]="language" (change)="switchLanguage($event)" class="form-control me-2">
           <option value="en">English</option>
           <option value="tr">Türkçe</option>
         </select>
-        <button class="btn btn-outline-light position-relative">
+        <button routerLink="/shopping-cart" class="btn btn-outline-light position-relative">
           <i class="fa-solid fa-cart-shopping" 
-          [ngClass]="count > 0 ? 'fa-bounce' : ''"></i>
-          <span *ngIf="count>0" class="position-absolute translate-middle badge rounded-pill bg-danger" style="top:40px; right: -27px;">
-            {{count}}
+          [ngClass]="shopping.count > 0 ? 'fa-bounce' : ''"></i>
+          <span *ngIf="shopping.count>0" class="position-absolute translate-middle badge rounded-pill bg-danger" style="top:40px; right: -27px;">
+            {{shopping.count}}
             <span class="visually-hidden">unread messages</span>
           </span> 
         </button>
