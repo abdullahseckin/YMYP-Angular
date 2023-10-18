@@ -4,5 +4,12 @@
     "homePage": "Home Page",
     "shoppingCartPage": "My Shopping Cart",
     "allCategories": "All Categories",
-    "addBookInShoppingCartIsSuccessful": "Adding books to the shopping cart was successful"
+    "addBookInShoppingCartIsSuccessful": "Adding books to the shopping cart was successful",
+    "noBooksInShoppingCart": "No book in shopping cart!",
+    "Bilim": "Science",
+    "remove": {
+        "doYouWantToDeleted": "Do you want to deleted?",
+        "cancelBtn": "Cancel",
+        "confirmBtn": "Remove"
+    }
 }

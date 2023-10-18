@@ -11,9 +11,14 @@
     </div>
 </div>
 
-<div class="row mt-4">
+<h1 *ngIf="shopping.count === 0" class="alert alert-danger text-center">
+   {{'noBooksInShoppingCart' | translate}} 
+</h1>
+
+<div class="row mt-4" *ngIf="shopping.count > 0">
     <div class="col-lg-9 col-12">
-        <div class="card mt-1 position-relative" *ngFor="let s of shopping.shoppingCarts">
+
+        <div class="card mt-1 position-relative" *ngFor="let s of shopping.shoppingCarts let i = index">
             <div class="row">
                 <div class="col-2 text-center card-image-div">
                     <img class="card-image" [src]="s.coverImageUrl" alt="">
@@ -38,23 +43,45 @@
                     </h5>
                 </div>
             </div>
-            <i class="fa fa-trash trash"></i>
+            <i class="fa fa-trash trash" (click)="shopping.removeByIndex(i)"></i>
         </div>
     </div>
 
     <div class="col-lg-3 col-12">
-        <div class="card">
+        <div class="card mt-1" *ngFor="let p of shopping.prices">
             <div class="form-group">
                 <h1 class="alert alert-danger text-center">
-                    25.000,00 ₺
+                    <span *ngIf="language == 'tr'">{{p.value | trCurrency}} {{p.currency}}</span>
+                    <span *ngIf="language != 'tr'">{{p.value | currency: '': '': '1.2-2'}} {{p.currency}}</span>
                 </h1>
             </div>
 
             <div class="form-group">
-                <button class="btn btn-danger w-100">
+                <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-danger w-100">
                     Ödeme Yap
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            {{'payment.title' | translate}}
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>

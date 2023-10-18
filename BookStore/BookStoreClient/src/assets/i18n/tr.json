@@ -4,5 +4,15 @@
     "homePage": "Ana Sayfa",
     "shoppingCartPage": "Sepetim",
     "allCategories": "Tüm Kategoriler",
-    "addBookInShoppingCartIsSuccessful": "Kitap başarıyla sepete eklendi"
+    "addBookInShoppingCartIsSuccessful": "Kitap başarıyla sepete eklendi",
+    "noBooksInShoppingCart": "Sepette ürününüz bulunmuyor!",
+    "remove": {
+        "doYouWantToDeleted": "Silmek istiyor musunuz?",
+        "cancelBtn": "Vazgeç",
+        "confirmBtn": "Sil"
+    },
+    "payment": {
+        "title": "Ödeme Sayfası"
+    }
+    
 }

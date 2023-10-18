@@ -13,10 +13,17 @@ public sealed class AppDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Book> Books { get; set; }
     public DbSet<BookCategory> BookCategories { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Book>().OwnsOne(p => p.Price, price =>
+        {
+            price.Property(p => p.Value).HasColumnType("money");
+            price.Property(p => p.Currency).HasMaxLength(5); // Assuming you want a max length for Currency
+        });//Value Object
+
+        modelBuilder.Entity<Order>().OwnsOne(p => p.Price, price =>
         {
             price.Property(p => p.Value).HasColumnType("money");
             price.Property(p => p.Currency).HasMaxLength(5); // Assuming you want a max length for Currency
