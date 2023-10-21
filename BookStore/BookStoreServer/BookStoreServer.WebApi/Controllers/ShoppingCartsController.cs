@@ -21,8 +21,8 @@ public sealed class ShoppingCartsController : ControllerBase
         {
             total += book.Price.Value;
         }
-
-        commission = total * 1.2m / 100;
+        commission = total;
+        //commission = total * 1.2m / 100;
 
         Currency currency = Currency.TRY;
         string requestCurrency = requestDto.Books[0]?.Price?.Currency;
@@ -84,6 +84,8 @@ public sealed class ShoppingCartsController : ControllerBase
         foreach (var book in requestDto.Books)
         {
             BasketItem item = new BasketItem();
+            item.Category1 = "Book";
+            item.Category2 = "Book";
             item.Id = book.Id.ToString();
             item.Name = book.Title;
             item.ItemType = BasketItemType.PHYSICAL.ToString();
@@ -121,8 +123,5 @@ public sealed class ShoppingCartsController : ControllerBase
         {
             return BadRequest(payment.ErrorMessage);
         }
-        //Status: success | failure
-        //ErrorMessage: Hata mesajı var.
-        return NoContent();
     }
 }

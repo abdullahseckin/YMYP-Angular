@@ -37,3 +37,13 @@
     background-color: #198754 !important;
     color: white !important;
 }
+
+.loader-category{
+    background-color: #f1f1f1;
+    margin-bottom: 10px;
+    padding: 20px 0px;
+}
+
+.loading{
+    background-color: #f1f1f1;
+}
