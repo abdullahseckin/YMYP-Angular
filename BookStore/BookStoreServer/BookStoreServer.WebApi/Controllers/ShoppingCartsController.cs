@@ -1,6 +1,8 @@
 ﻿using BookStoreServer.WebApi.Context;
 using BookStoreServer.WebApi.Dtos;
+using BookStoreServer.WebApi.Enums;
 using BookStoreServer.WebApi.Models;
+using BookStoreServer.WebApi.Services;
 using BookStoreServer.WebApi.ValueObjects;
 using Iyzipay;
 using Iyzipay.Model;
@@ -13,7 +15,7 @@ namespace BookStoreServer.WebApi.Controllers;
 public sealed class ShoppingCartsController : ControllerBase
 {
     [HttpPost]
-    public IActionResult Payment(PaymentDto requestDto)
+    public async Task<IActionResult> Payment(PaymentDto requestDto)
     {
         decimal total = 0;
         decimal commission = 0; //komisyon
@@ -53,7 +55,7 @@ public sealed class ShoppingCartsController : ControllerBase
         }
 
         //Bağlantı bilgilerini istiyor
-        Options options = new Options();
+        Iyzipay.Options options = new Iyzipay.Options();
         options.ApiKey = "sandbox-uKTe5VmnUQMQVpyGRCbMqZQOjTCyb0yM";
         options.SecretKey = "sandbox-WyungnQ9HfKf0SCgY66gqkL5J5PCvhFb";
         options.BaseUrl = "https://sandbox-api.iyzipay.com";
@@ -98,24 +100,57 @@ public sealed class ShoppingCartsController : ControllerBase
 
         if(payment.Status == "success")
         {
+            string orderNumber = Order.GetNewOrderNumber();
+
             List<Order> orders = new();
             foreach (var book in requestDto.Books)
             {
                 Order order = new()
                 {
-                    OrderNumber = request.BasketId,
+                    OrderNumber = orderNumber,
                     BookId = book.Id,
                     Price = new Money(book.Price.Value, book.Price.Currency),
                     PaymentDate = DateTime.Now,
                     PaymentType = "Credit Cart",
                     PaymentNumber = payment.PaymentId,
+                    CreatedAt = DateTime.Now
                 };
                 orders.Add(order);
             }
 
             AppDbContext context = new();
+
+            OrderStatus orderStatus = new()
+            {
+                OrderNumber = orderNumber,
+                Status = OrderStatusEnum.AwaitingApproval,
+                StatusDate = DateTime.Now
+            };
+
+            context.OrderStatuses.Add(orderStatus);
             context.Orders.AddRange(orders);
             context.SaveChanges();
+
+
+            string response = await MailService.SendEmailAsync(requestDto.Buyer.Email, "Siparişiniz Alındı", $@"
+            <h1>Siparişiniz Alındı</h1>
+            <p>Sipariş numaranız: {orderNumber}</p>
+            <p>Ödeme numaranız: {payment.PaymentId}</p>
+            <p>Ödeme tutarınız: {payment.PaidPrice}</p>
+            <p>Ödeme tarihiniz: {DateTime.Now}</p>
+            <p>Ödeme tipiniz: Kredi Kartı</p>
+            <p>Ödeme durumunuz: Onay bekliyor</p>");
+
+            //mail göndersin
+            //smtp  => mail sisteminin bir tane  stmp.google.com 127.01.20.312
+            //email
+            //password
+            //port // 587  465
+            //ssl 
+            //html
+
+            //body => <h1>Merhaba</h1> <p>İyi günler</p>
+
 
             return NoContent();
         }

@@ -14,9 +14,13 @@ public sealed class AppDbContext : DbContext
     public DbSet<Book> Books { get; set; }
     public DbSet<BookCategory> BookCategories { get; set; }
     public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderStatus> OrderStatuses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<OrderStatus>()
+            .HasIndex(p => new { p.Status , p.OrderNumber }).IsUnique();
+
         modelBuilder.Entity<Book>().OwnsOne(p => p.Price, price =>
         {
             price.Property(p => p.Value).HasColumnType("money");

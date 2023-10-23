@@ -21,8 +21,8 @@
           <input [(ngModel)]="searchCategory" type="search" class="form-control"
             placeholder="{{ 'search' | translate }}" />
         </div>
-        <ul class="categories">
-          <li class="category loader-category" *ngFor="let l of loaderDatas">
+        <ul class="categories placeholder-glow">
+          <li class="category loader-category placeholder " *ngFor="let l of loaderDatas" disabled>
           </li>
         </ul>
       </div>
@@ -39,17 +39,18 @@
     <div class="row">
       <div class="col-xl-4 col-md-6 col-12 mb-2" *ngFor="let l of loaderDatas">
         <div class="card text-center">
-          <div class="card-body">
-            <div class="card-img-top mt-2 loading"></div>
+          <div class="card-body placeholder-glow">
+            <div class="card-img-top mt-2 loading placeholder"></div>
           </div>
-          <div class="card-header">
+          <div class="card-header placeholder-glow">
             <h5 class="card-title"></h5>
-            <p></p>
+            <p class="placeholder"></p>
           </div>
-          <div class="card-body">
-            <p class="card-text"></p>
+          <div class="card-body placeholder-glow">
+            <p class="card-text placeholder"></p>
             <button iconControl
-              class="btn btn-outline-secondary d-flex justify-content-between w-100 align-items-center loading">
+            disabled
+              class="btn btn-outline-secondary d-flex placeholder justify-content-between w-100 align-items-center loading">
               <span></span>
               <i class="fa-solid fa-cart-shopping"></i>
             </button>

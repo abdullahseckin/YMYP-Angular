@@ -267,6 +267,32 @@ namespace BookStoreServer.WebApi.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("BookStoreServer.WebApi.Models.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("OrderNumber")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StatusDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Status", "OrderNumber")
+                        .IsUnique()
+                        .HasFilter("[OrderNumber] IS NOT NULL");
+
+                    b.ToTable("OrderStatuses");
+                });
+
             modelBuilder.Entity("BookStoreServer.WebApi.Models.Book", b =>
                 {
                     b.OwnsOne("BookStoreServer.WebApi.ValueObjects.Money", "Price", b1 =>
