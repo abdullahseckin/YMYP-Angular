@@ -18,6 +18,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 import { TrCurrencyPipe } from 'tr-currency';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ZoomDirective } from './directives/zoom.directive';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -30,7 +31,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     CategoryPipe,
     IconControlDirective,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    ZoomDirective
   ],
   imports: [
     BrowserModule,
