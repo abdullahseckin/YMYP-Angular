@@ -4,16 +4,94 @@ using BookStoreServer.WebApi.Enums;
 using BookStoreServer.WebApi.Models;
 using BookStoreServer.WebApi.Services;
 using BookStoreServer.WebApi.ValueObjects;
-using Iyzipay;
 using Iyzipay.Model;
 using Iyzipay.Request;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreServer.WebApi.Controllers;
 [Route("api/[controller]/[action]")]
 [ApiController]
 public sealed class ShoppingCartsController : ControllerBase
 {
+   
+    [HttpPost]
+    public IActionResult Add(AddShoppingCartDto request)
+    {
+        AppDbContext context = new();
+        ShoppingCart cart = new()
+        {
+            BookId = request.BookId,
+            Price = request.Price,
+            Quantity = 1,
+            UserId = request.UserId,
+        };
+        context.Add(cart);
+        context.SaveChanges();
+        return NoContent();
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult RemoveById(int id)
+    {
+        AppDbContext context = new();
+        var shoppingCart = context.ShoppingCarts.Where(p=> p.Id == id).FirstOrDefault();
+        if (shoppingCart != null)
+        {
+            context.Remove(shoppingCart);
+            context.SaveChanges();
+        }
+
+        return NoContent();
+    }
+
+    [HttpGet("{userId}")]
+    public IActionResult GetAll(int userId)
+    {
+        AppDbContext context = new();
+        List<ShoppingCartResponseDto> books = context.ShoppingCarts.AsNoTracking().Include(p => p.Book).Select(s => new ShoppingCartResponseDto()
+        {
+            Author = s.Book.Author,
+            CoverImageUrl = s.Book.CoverImageUrl,
+            CreateAt = s.Book.CreateAt,            
+            Id = s.Book.Id,
+            IsActive = s.Book.IsActive,
+            ISBN = s.Book.ISBN,
+            IsDeleted = s.Book.IsDeleted,
+            Price = s.Price,
+            Quantity = s.Quantity,
+            Summary = s.Book.Summary,
+            Title = s.Book.Title,
+            ShoppingCartId = s.Id
+        }).ToList();
+        return Ok(books);
+    }
+
+    [HttpPost]
+    public IActionResult SetShoppingCartsFromLocalStorage(List<SetShoppingCartsDto> request)
+    {
+        AppDbContext context = new();
+        List<ShoppingCart> shoppingCarts = new();
+
+        foreach (var item in request)
+        {
+            ShoppingCart shoppingCart = new()
+            {
+                BookId = item.BookId,
+                UserId = item.UserId,
+                Price = item.Price,
+                Quantity = item.Quantity
+            };
+
+            shoppingCarts.Add(shoppingCart);
+        }
+
+        context.AddRange(shoppingCarts);
+        context.SaveChanges();
+
+        return NoContent();
+    }
+
     [HttpPost]
     public async Task<IActionResult> Payment(PaymentDto requestDto)
     {

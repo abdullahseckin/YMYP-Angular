@@ -267,3 +267,6 @@ C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.
 C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\AutoMapper.dll
 C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\EFCore.NamingConventions.dll
+C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\Npgsql.dll
+C:\YMYP-Angular\BookStore\BookStoreServer\BookStoreServer.WebApi\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

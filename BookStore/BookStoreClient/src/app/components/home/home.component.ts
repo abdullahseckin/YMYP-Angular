@@ -5,6 +5,8 @@ import { BookModel } from '../../models/book.model';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { SwalService } from '../../services/swal.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AddShoppingCartModel } from 'src/app/models/add-shopping-cart.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -25,18 +27,38 @@ export class HomeComponent {
     private http: HttpClient,
     private shopping: ShoppingCartService,
     private swal: SwalService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private auth: AuthService
     ){
+      if(localStorage.getItem("request")){
+        const requestString:any = localStorage.getItem("request");
+        const requestObj = JSON.parse(requestString);
+        this.request = requestObj;
+      }
       this.getCategories();
   }
 
   addShoppingCart(book: BookModel){
-    this.shopping.shoppingCarts.push(book);
-    localStorage.setItem("shoppingCarts", JSON.stringify(this.shopping.shoppingCarts));
-    this.shopping.count++;
-    this.translate.get("addBookInShoppingCartIsSuccessful").subscribe(res=> {
-      this.swal.callToast(res);
-    });
+    if(localStorage.getItem("response")){
+      const data : AddShoppingCartModel = new AddShoppingCartModel();
+      data.bookId = book.id;
+      data.price = book.price;
+      data.quantity = 1;
+      data.userId = this.auth.userId;
+
+      this.http.post("https://localhost:7082/api/ShoppingCarts/Add", data).subscribe(res=> {
+        this.shopping.checkLocalStoreForShoppingCarts();
+        this.translate.get("addBookInShoppingCartIsSuccessful").subscribe(res=> {
+          this.swal.callToast(res);
+        });
+      });
+    }else{
+      this.shopping.shoppingCarts.push(book);
+      localStorage.setItem("shoppingCarts", JSON.stringify(this.shopping.shoppingCarts));
+      this.translate.get("addBookInShoppingCartIsSuccessful").subscribe(res=> {
+        this.swal.callToast(res);
+      });
+    }
   }
 
   feedData(){
@@ -58,6 +80,7 @@ export class HomeComponent {
     .subscribe(res=> {
       this.books = res;
       this.isLoading = false;
+      localStorage.setItem("request",JSON.stringify(this.request));
     })
   }
 

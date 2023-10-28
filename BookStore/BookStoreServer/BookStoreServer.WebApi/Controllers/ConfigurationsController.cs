@@ -28,7 +28,7 @@ public sealed class ConfigurationsController : ControllerBase
                 IsActive = true,
                 IsDeleted = false,
                 ISBN = $"ISBN {i}",
-                CreateAt = DateTime.Now
+                CreateAt = DateTime.UtcNow
             };
             books.Add(book);
         }

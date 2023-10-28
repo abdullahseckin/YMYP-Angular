@@ -34,8 +34,7 @@ export class ShoppingCartComponent {
     if (localStorage.getItem("language")) {
       this.language = localStorage.getItem("language") as string;
     }
-
-    this.shopping.checkLocalStoreForShoppingCarts();
+    
     this.request.books = this.shopping.shoppingCarts;
   }
 

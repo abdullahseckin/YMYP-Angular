@@ -7,7 +7,8 @@ public sealed class AppDbContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Data Source=DESKTOP-3BJ5GK9\\SQLEXPRESS;Initial Catalog=YMYP_BookStoreDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        //optionsBuilder.UseSqlServer("Data Source=DESKTOP-3BJ5GK9\\SQLEXPRESS;Initial Catalog=YMYP_BookStoreDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=admin;Database=BookStoreDb;");
     }
 
     public DbSet<Category> Categories { get; set; }
@@ -16,6 +17,7 @@ public sealed class AppDbContext : DbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderStatus> OrderStatuses { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -36,6 +38,12 @@ public sealed class AppDbContext : DbContext
             price.Property(p => p.Value).HasColumnType("money");
             price.Property(p => p.Currency).HasMaxLength(5); // Assuming you want a max length for Currency
         });//Value Object
+
+        modelBuilder.Entity<ShoppingCart>().OwnsOne(p => p.Price, price =>
+        {
+            price.Property(p => p.Value).HasColumnType("money");
+            price.Property(p => p.Currency).HasMaxLength(5);
+        });
 
         modelBuilder.Entity<BookCategory>().HasKey(p => new { p.BookId, p.CategoryId });
         //Composite Key

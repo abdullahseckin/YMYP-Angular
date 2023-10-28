@@ -54,6 +54,6 @@ public sealed class AuthController : ControllerBase
 
         string token = JwtService.CreatToken(user);
 
-        return Ok(new {Token = token});
+        return Ok(new LoginResponseDto(Token: token, UserId: user.Id, UserName: user.GetName()));
     }
 }

@@ -11,6 +11,7 @@ export class BookModel{
     isbn: string = "";
     createAt: string = "";
     categories: string[] = [];
+    shoppingCartId: number = 0;    
 }
 
 export class Money{
